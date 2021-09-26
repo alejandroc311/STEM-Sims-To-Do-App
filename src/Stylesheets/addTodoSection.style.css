@@ -1,0 +1,22 @@
+*{
+    margin: 0;
+    padding:0;
+}
+
+#addTodoSection{
+    margin-top: 0.625rem;
+}
+
+.bi-plus{
+    margin: 0.625rem;
+    font-size: 2.50rem;
+}
+
+#addTodoInput{
+    margin: 0.625rem;
+    font-size: 1.875rem;
+}
+
+#addTodoInput:placeholder-shown{ 
+    font-size: 1.875rem;
+}

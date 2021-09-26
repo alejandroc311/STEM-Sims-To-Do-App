@@ -2,14 +2,20 @@ import React from "react";
 import AddTodoButton from "./Add-Todo-Section-Components/Add-Todo-Button";
 import AddTodoInput from "./Add-Todo-Section-Components/Add-Todo-Input";
 
-function AddTodoSection (){
-
+interface AddTodoSectionProps{
+    handleUserInput: Function;
+    userInput: string;
+}
+function AddTodoSection (props: AddTodoSectionProps){
+    
     return(
-        <div className="container-fluid d-flex justify-content-center">
+        <div className="container-fluid">
             <div className="row">
                 <div className="col-xxl-8 offset-xxl-2">
-                    <AddTodoButton />
-                    <AddTodoInput userInput={"string"}/>
+                    <div className="input-group border border-dark border-3 rounded-pill" id="addTodoSection">
+                        <AddTodoButton />
+                        <AddTodoInput onInputChange={props.handleUserInput} userInput={props.userInput}/>
+                    </div>
                 </div>
             </div>
         </div>

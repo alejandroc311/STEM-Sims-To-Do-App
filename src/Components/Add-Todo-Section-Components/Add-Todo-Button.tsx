@@ -1,9 +1,9 @@
-import Reacr from "react";
+import React from "react";
 
 function AddTodoButton(){
-    
+
     return(
-        <button className="btn">
+        <button className="btn" id="addTodoButton">
             <i className="bi bi-plus"></i>
         </button>
     );
