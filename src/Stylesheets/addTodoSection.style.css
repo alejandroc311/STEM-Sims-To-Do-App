@@ -20,3 +20,11 @@
 #addTodoInput:placeholder-shown{ 
     font-size: 1.875rem;
 }
+
+.todoListItemCheckButton{
+    margin:0.625rem;
+}
+
+#todoStringContainer{
+    font-size: 1.25rem;
+}

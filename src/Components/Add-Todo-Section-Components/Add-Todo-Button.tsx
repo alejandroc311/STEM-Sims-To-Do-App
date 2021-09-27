@@ -1,9 +1,14 @@
 import React from "react";
-
-function AddTodoButton(){
+interface AddTodoButtonProps{
+    onClick:Function;
+};
+function AddTodoButton(props: AddTodoButtonProps){
+    function handleClick (event:any){
+        props.onClick(event.target);
+    }
 
     return(
-        <button className="btn" id="addTodoButton">
+        <button className="btn" id="addTodoButton" onClick={handleClick}>
             <i className="bi bi-plus"></i>
         </button>
     );
