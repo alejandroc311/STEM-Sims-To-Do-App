@@ -29,7 +29,7 @@ function TodoListItem(this: any, props: TodoListItemProps){
     
     return(
 
-        <div className="card" draggable={true}
+        <div className="card border border-dark border-1 rounded-pill" draggable={true}
         onDragOver={e => e.preventDefault()}
         onDragStart={handleDrag}
         onDrop={handleDrop} >

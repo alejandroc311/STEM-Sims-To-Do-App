@@ -2,6 +2,7 @@
   "name": "todo-assessment",
   "version": "1.0.0",
   "private": true,
+  "homepage": ".",
   "dependencies": {
     "jquery": "^3.6.0",
     "react": "^17.0.2",

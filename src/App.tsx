@@ -9,6 +9,7 @@ var todoListItems;
 var completedTodoList = ["Play Tennis"];
 var completedTodoListItems;
 
+
 function App (){
   
   const [userInput, setUserInput] = React.useState("");
@@ -146,7 +147,8 @@ function App (){
         </div>
       </div>
       
-      {}<div id="pending" className="list-group">{todoListItems}</div>
+      <div id="pending">{todoListItems}</div>
+
       <div className="container-fluid" id="completedItems"> 
         <div className="row">
           <div className="col-4 offset-4 d-flex justify-content-center">
@@ -154,6 +156,7 @@ function App (){
           </div>
         </div>
       </div>
+
       <div id="completed" className="list-group">{completedTodoListItems}</div>
     </>
   );
