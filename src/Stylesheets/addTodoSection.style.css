@@ -28,3 +28,19 @@
 #todoStringContainer{
     font-size: 1.25rem;
 }
+
+#completedItems{
+    margin-top: 0.625rem;
+    padding: 1.25rem;
+}
+
+.todoListItemCheckButton:checked{
+    border-color: #D7B1D7;
+    background-color: #D7B1D7;
+  }
+
+html, body{
+    width: auto!important;
+    overflow-x: hidden!important;
+  
+  }

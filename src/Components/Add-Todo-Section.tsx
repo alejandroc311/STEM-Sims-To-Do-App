@@ -1,5 +1,4 @@
 import React from "react";
-import { isPropertySignature } from "typescript";
 import AddTodoButton from "./Add-Todo-Section-Components/Add-Todo-Button";
 import AddTodoInput from "./Add-Todo-Section-Components/Add-Todo-Input";
 
