@@ -8,10 +8,11 @@ var todoList = ["Wash Laundry","Finish STEM Sims Exercise"];
 var todoListItems;
 var completedTodoList = ["Play Tennis"];
 var completedTodoListItems;
+var nameOfEditButton:string;
 
 
 function App (){
-  
+
   const [userInput, setUserInput] = React.useState("");
   const [numOfTodos, setNumOfTodos] = React.useState(todoList.length);
   const [isCompleted, setIsCompleted] = React.useState("");
@@ -19,6 +20,12 @@ function App (){
   function handleUserInput(name: string, value: string){
     if(name == "addTodoInput"){
       setUserInput(value);
+      console.log(name);
+    }
+    else {
+      console.log(name);
+      nameOfEditButton = name;
+      console.log(nameOfEditButton);
     }
   }
   function handleCheck(name: string, checked: boolean){
@@ -31,7 +38,7 @@ function App (){
       if (index > -1){
         completedTodoList.push($("#"+name).text())
         todoList.splice(index,1);
-        
+
       }
       setIsCompleted("true");
     }
@@ -49,22 +56,46 @@ function App (){
     }
     console.log(todoList, completedTodoList);
   }
+
+  function handleEditSubmit(value:string){
+    console.log(value);
+    console.log($("#"+value).contents());
+    console.log(nameOfEditButton);
+    console.log($("#"+nameOfEditButton).parent().parent().parent().parent().parent().prev().find(".col-7").text());
+    var string = ($("#"+value).find(".form-control").val() || "");
+    console.log(string);
+    var string2 = ($("#"+nameOfEditButton).parent().parent().parent().parent().parent().prev().find(".col-7").text());
+    var index1 = todoList.indexOf(string2.toString());
+    var index2 = completedTodoList.indexOf(string2.toString())
+    if (index1 > -1){
+      todoList[index1] = string.toString();
+    }
+    else {
+      completedTodoList[index2] = string.toString();
+    }
+    //$("#"+nameOfEditButton).parent().parent().parent().parent().parent().remove();
+    $("#"+value).find(".form-control").val("");
+    setIsCompleted("true");
+  }
   function handleDrag(name:string){
     console.log(name);
-    console.log($(name).find(".row").find(".col-8").attr("id"));
-    setDraggedId(($(name).find(".row").find(".col-8").attr("id") || ""));
+    console.log($(name).find(".row").find(".col-7").attr("id"));
+    setDraggedId(($(name).find(".row").find(".col-7").attr("id") || ""));
   }
   function handleDrop(name:string){
     var draggedIndex;
     var droppedIndex;
     const draggedbox = draggedId;
-    const draggedindex1 = todoList.indexOf($("#"+draggedbox).text());
-    const draggedindex2 = completedTodoList.indexOf($("#"+draggedbox).text());
+    console.log("id of dragged:" + draggedId);
+    const draggedindex1 = todoList.indexOf($("#"+draggedbox).text().toString());
+    const draggedindex2 = completedTodoList.indexOf($("#"+draggedbox).text().toString());
+    console.log($(name).find(".row").find(".col-7").attr("id"));
     //spotDropped
-    const spotDropped = $(name).find(".row").find(".col-8").attr("id");
-    const droppedindex1 = todoList.indexOf($("#"+spotDropped).text());
-    const droppedindex2 = completedTodoList.indexOf($("#"+spotDropped).text());
-    
+    const spotDropped = ($(name).find(".row").find(".col-7").attr("id") || "");
+    console.log("Id of Dropped:" + spotDropped);
+    const droppedindex1 = todoList.indexOf($("#"+spotDropped).text().toString());
+    const droppedindex2 = completedTodoList.indexOf($("#"+spotDropped).text().toString());
+
     if(droppedindex1 > -1){
       droppedIndex = droppedindex1
     }
@@ -73,11 +104,24 @@ function App (){
     }
     if(draggedindex1 > -1){
       draggedIndex = draggedindex1;
-      [todoList[draggedIndex], todoList[droppedIndex]] = [todoList[droppedIndex], todoList[draggedIndex]];
+      if(spotDropped.includes("completed") == false && !draggedId.includes("completed") == true){
+        [todoList[draggedIndex], todoList[droppedIndex]] = [todoList[droppedIndex], todoList[draggedIndex]];
+      }
+      else if(spotDropped.includes("completed") && !draggedId.includes("completed")){
+        completedTodoList.push(todoList[draggedIndex]);
+        todoList.splice(draggedIndex, 1);
+      }
     }
     else{
       draggedIndex = draggedindex2;
-      [completedTodoList[draggedIndex], completedTodoList[droppedIndex]] = [completedTodoList[droppedIndex], completedTodoList[draggedIndex]];
+      if(spotDropped.includes("completed") == true && draggedId.includes("completed") == true ){
+          [completedTodoList[draggedIndex], completedTodoList[droppedIndex]] = [completedTodoList[droppedIndex], completedTodoList[draggedIndex]];
+      }
+      else if(spotDropped.includes("completed") == false && draggedId.includes("completed") == true){
+        todoList.push(completedTodoList[draggedIndex]);
+        completedTodoList.splice(draggedIndex, 1);
+      }
+
     }
 
     setIsCompleted("true");
@@ -85,7 +129,7 @@ function App (){
     //CHANGE INDEX ON ARRAY
   }
   function addTodoItem() {
-    console.log("It enters theç add function.");
+    console.log("It enters the add function.");
     todoList.push(userInput);
     setNumOfTodos(todoList.length);
     setUserInput("");
@@ -93,7 +137,6 @@ function App (){
   }
   function deleteTodoItem(name: string){
     console.log(name);
-    console.log($("#"+name).text());
     var index = completedTodoList.indexOf($("#"+name).text());
     var ind = todoList.indexOf($("#"+name).text());
     console.log(index, ind);
@@ -106,14 +149,15 @@ function App (){
     console.log(todoList, completedTodoList);
     setIsCompleted("true");
   }
+
   completedTodoListItems = completedTodoList.map((element, index) => {
     return(
-      <TodoListItem  onDrop={handleDrop} handleDrag={handleDrag} onCheck={handleCheck} todoString={element} onClick={deleteTodoItem} indexOfTodoListItem={"completed"+index.toString()} key={index}/>
+      <TodoListItem  formName={"completed"+index.toString()} onDrop={handleDrop} modalcontainername={"completed"+index.toString()} editbuttonname={"completed" + index.toString()} handleEditSubmit={handleEditSubmit} editItem={handleUserInput} handleDrag={handleDrag} onCheck={handleCheck} todoString={element} onClick={deleteTodoItem} modalName={"completed" + index.toString()} indexOfTodoListItem={"completed"+index.toString()} key={index}/>
     );
   });
   todoListItems = todoList.map((element, index) => {
     return(
-      <TodoListItem onDrop={handleDrop} handleDrag={handleDrag} onCheck={handleCheck} todoString={element} onClick={deleteTodoItem} indexOfTodoListItem={index.toString()} key={index}/>
+      <TodoListItem formName={index.toString()} onDrop={handleDrop} modalcontainername={index.toString()} editbuttonname={index.toString()} handleEditSubmit={handleEditSubmit} editItem={handleUserInput} handleDrag={handleDrag} onCheck={handleCheck} todoString={element} onClick={deleteTodoItem} modalName={index.toString()} indexOfTodoListItem={index.toString()} key={index}/>
     );
   });
   React.useEffect(() => {
@@ -137,19 +181,19 @@ function App (){
   );
   return(
     <>
-      <AddTodoSection userInput={userInput} handleUserInput={handleUserInput} onClickAddButton={addTodoItem}/>
+      <AddTodoSection onSubmit={addTodoItem} userInput={userInput} handleUserInput={handleUserInput}/>
 
-      <div className="container-fluid" id="pendingItems"> 
+      <div className="container-fluid" id="pendingItems">
         <div className="row">
           <div className="col-4 offset-4 d-flex justify-content-center">
            PENDING ITEMS
           </div>
         </div>
       </div>
-      
+
       <div id="pending">{todoListItems}</div>
 
-      <div className="container-fluid" id="completedItems"> 
+      <div className="container-fluid" id="completedItems">
         <div className="row">
           <div className="col-4 offset-4 d-flex justify-content-center">
            COMPLETED ITEMS

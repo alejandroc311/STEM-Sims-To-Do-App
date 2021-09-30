@@ -11,9 +11,9 @@ function AddTodoInput(props: AddTodoInputProps){
     }
     return(
         <div>
-            <input type="text" name="addTodoInput" onChange={handleUserInput} value={props.userInput} className="form-control border-0 shadow-none" id="addTodoInput" placeholder="Add a task" aria-describedby="addTodoButton"/>
+            <input type="text" name="addTodoInput" onChange={handleUserInput} value={props.userInput} className="form-control border-0 shadow-none" id="addTodoInput" placeholder="Add a task right here ..." aria-describedby="addTodoButton"/>
         </div>
-            
+
     );
 }
 export default AddTodoInput;

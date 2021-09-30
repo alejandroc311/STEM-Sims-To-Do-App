@@ -5,20 +5,23 @@ import AddTodoInput from "./Add-Todo-Section-Components/Add-Todo-Input";
 interface AddTodoSectionProps{
     handleUserInput: Function;
     userInput: string;
-    onClickAddButton: Function;
+    onSubmit: Function;
 }
 
 
 function AddTodoSection (props: AddTodoSectionProps){
-    
+  function onSubmit(event:any){
+    event.preventDefault();
+    props.onSubmit(props.userInput);
+  }
     return(
         <div className="container-fluid">
             <div className="row">
-                <div className="col-xxl-8 offset-xxl-2">
-                    <div className="input-group border border-dark border-3 rounded-pill" id="addTodoSection">
-                        <AddTodoButton onClick={props.onClickAddButton}/>
+                <div className="col-12">
+                    <form className="input-group d-flex align-items-center border border-dark border-3 rounded-pill" onSubmit={onSubmit} id="addTodoSection">
+                        <AddTodoButton/>
                         <AddTodoInput onInputChange={props.handleUserInput} userInput={props.userInput}/>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>

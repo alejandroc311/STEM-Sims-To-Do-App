@@ -3,10 +3,28 @@
     padding:0;
 }
 
+@media only screen and (max-width:581px) {
+  #addTodoSection{
+    padding: 0rem;
+    overflow: hidden;
+  }
+  #addTodoInput{
+      margin:0rem;
+      font-size: 0.625rem;
+  }
+
+  #addTodoInput:placeholder-shown{
+      font-size:0.625rem;
+  }
+  .bi-plus{
+      margin: 0rem;
+      font-size: 1.25rem;
+  }
+}
+
 #addTodoSection{
     margin-top: 0.625rem;
 }
-
 .bi-plus{
     margin: 0.625rem;
     font-size: 2.50rem;
@@ -17,7 +35,7 @@
     font-size: 1.875rem;
 }
 
-#addTodoInput:placeholder-shown{ 
+#addTodoInput:placeholder-shown{
     font-size: 1.875rem;
 }
 
@@ -39,7 +57,7 @@
     margin-right: 3.75rem;
     margin-left: 3.75rem;
     padding: 1.25rem;
-  
+
 }
 #completedItems{
     margin-top: 0.625rem;
@@ -58,5 +76,5 @@
 html, body{
     width: auto!important;
     overflow-x: hidden!important;
-  
+
   }
